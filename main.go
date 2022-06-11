@@ -6,6 +6,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"net/http"
 	"note_go_api/app/controllerMiddleware"
+	"note_go_api/app/router"
 	docs "note_go_api/docs"
 )
 
@@ -29,6 +30,9 @@ func main() {
 
 	// 允许跨域
 	r.Use(controllerMiddleware.Cors())
+
+	// 注册路由
+	router.RegisteredRoutes(r)
 
 	docs.SwaggerInfo.BasePath = "/api/v1"
 	v1 := r.Group("/api/v1")
