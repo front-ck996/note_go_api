@@ -2,15 +2,15 @@ package controller
 
 import "github.com/gin-gonic/gin"
 
-type Context struct {
+type BaseController struct {
 	*gin.Context
 }
 
-type HandlerFunc func(c *Context)
+type HandlerFunc func(c *BaseController)
 
 func Handle(h HandlerFunc) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		ctx := &Context{
+		ctx := &BaseController{
 			c,
 		}
 		h(ctx)
@@ -18,6 +18,6 @@ func Handle(h HandlerFunc) gin.HandlerFunc {
 }
 
 //返回JSON
-func (c *Context) RJson(data interface{}) {
+func (c *BaseController) RJson(data interface{}) {
 	c.JSON(200, data)
 }
