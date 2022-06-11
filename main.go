@@ -5,6 +5,7 @@ import (
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"net/http"
+	"note_go_api/app/controllerMiddleware"
 	docs "note_go_api/docs"
 )
 
@@ -25,6 +26,10 @@ func Helloworld(g *gin.Context) {
 
 func main() {
 	r := gin.Default()
+
+	// 允许跨域
+	r.Use(controllerMiddleware.Cors())
+
 	docs.SwaggerInfo.BasePath = "/api/v1"
 	v1 := r.Group("/api/v1")
 	{
